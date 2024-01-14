@@ -23,7 +23,7 @@ interface results {
 function ItemsPage() {
 
     const [items, setItems] = useState<results[]>([])
-    const [params, setParams] = useState("")
+    const [params, setParams] = useState<string | null>("")
 
     const fetchItems = () => {
         const urlParams = new URLSearchParams (window.location.search);
@@ -31,15 +31,14 @@ function ItemsPage() {
 
         if(params !== searchProduct) {
             axios.get("https://api.mercadolibre.com/sites/MLA/search?q=" + searchProduct + "&limit=4")
-            // .then(res => console.log(res.data.results))
             .then(response => {setItems(response.data.results); return response.data})
+            .then(() => setParams(searchProduct))
             .catch(error => console.log(error))
         }
     }
 
     useEffect(() => {
         fetchItems()
-        console.log(items)
     }, [])
 
     const mapCurrencyId = (str: keyof typeof currencyMap) => {
@@ -62,9 +61,6 @@ function ItemsPage() {
                 )
             })}
         </ul>
-
-        <button onClick={ () => fetchItems}>n</button>
-
       </section>
   );
 }
