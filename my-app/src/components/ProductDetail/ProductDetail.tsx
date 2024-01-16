@@ -16,7 +16,7 @@ function ProductDetail() {
         currency_id: "ARS",
         title: '',
         price: 0,
-        pictures: [{url: 'https://e7.pngegg.com/pngimages/321/641/png-clipart-load-the-map-loading-load.png'}],
+        pictures: [{url: 'https://placehold.co/600x600'}],
         condition: 'new'
     })
     const [ itemDescription, setItemDescription ] = useState<string>('')
