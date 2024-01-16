@@ -1,5 +1,7 @@
+@use '../../App' as variables;
+
 .header {
-    background-color: #ffe600;
+    background-color: variables.$navHeaderBackground;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -28,7 +30,7 @@
     border: none;
 }
 .nav__search-button {
-    color:#EBECEE;
+    color:variables.$navHeaderSearchBtnColor;
     width: 46px;
     height: 40px;
     border: none;

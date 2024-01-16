@@ -1,16 +1,9 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import ItemCard from '../ItemCard/ItemCard'
-import { Results } from '../../App'
+import { Results } from '../../types'; 
+import { currencyMap } from '../../constants';
 import '../../App.scss'
-
-const currencyMap = {
-    'ARS' : '$',
-    'BOB' : 'Bs',
-    'USD' : 'U$D',
-    'COP' : '$',
-    'BRL' : 'R$'
-}
 
 interface Props {
     items : Results[]
@@ -25,7 +18,7 @@ function ItemsPage(items: Props) {
 
   return (
       <section className='products-section'>
-        <ul className='products-section-list'>
+        <ul className='products-section__list'>
             {itemArray.map((item) => {
                 return (
                     <Link to={"/items/" + item.id } key={item.id}>

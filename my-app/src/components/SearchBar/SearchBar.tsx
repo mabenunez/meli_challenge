@@ -1,22 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
+import axios from 'axios'
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { Results } from '../../types';
 import logo from '../../meli-logo.png';
 import searchIcon from '../../search-icon.png'
 import './SearchBar.scss';
-import axios from 'axios'
-import { Results } from '../../App'
 
 interface Props {
   setSearch: (e: Results[]) => void;
 }
 
-interface Form extends HTMLDivElement {
-  query: HTMLInputElement;
-}
-
 function SearchBar({ setSearch}:Props) {
-  const [items, setItems] = useState<Results[]>([])
 
   const navigate = useNavigate();
 
@@ -27,10 +22,9 @@ function SearchBar({ setSearch}:Props) {
 
     const searchProduct = event.target.query.value
 
-      axios.get("https://api.mercadolibre.com/sites/MLA/search?q=" + searchProduct + "&limit=4")
-      .then(response => {setItems(response.data.results); return response.data.results})
-      .then((items) => setSearch(items))
-      .catch(error => console.log(error))
+    axios.get("https://api.mercadolibre.com/sites/MLA/search?q=" + searchProduct + "&limit=4")
+    .then((response) => setSearch(response.data.results))
+    .catch(error => console.log(error))
 
   }
   return (

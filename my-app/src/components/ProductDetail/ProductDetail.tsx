@@ -3,19 +3,21 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import '../../App.scss'
 import './ProductDetail.scss'
-
-const currencyMap = {
-    'ARS' : '$',
-    'BOB' : 'Bs',
-    'USD' : 'U$D',
-    'COP' : '$',
-    'BRL' : 'R$'
-}
+import { Results } from '../../types';
+import { currencyMap, productConditionMap } from '../../constants';
 
 function ProductDetail() {
 
     const [ loading, setLoading ] = useState<boolean>(true)
-    const [ item, setItem ] = useState<any>({})
+    const [ item, setItem ] = useState<Results>({
+        id: '',
+        thumbnail: '',
+        currency_id: "ARS",
+        title: '',
+        price: 0,
+        pictures: [],
+        condition: 'new'
+    })
     const [ itemDescription, setItemDescription ] = useState<string>('')
 
     const mapCurrencyId = (str: keyof typeof currencyMap) => {
@@ -40,29 +42,29 @@ function ProductDetail() {
             {loading 
                 ? <div>cargando</div>
                 : (
-                    <div className='product-detail-container'>
-                <div className='product-detail-left'>
-                    <div>
-                        <img src={item.pictures[0].url} alt="" />
+                    <div className='detail-container'>
+                        <div className='detail-container__left-column'>
+                            <div>
+                                <img src={item.pictures[0].url} alt="imagen-de-producto" />
+                            </div>
+                            <div>
+                                <h3>
+                                    Descripción del producto
+                                </h3>
+                                <p>
+                                    {itemDescription}
+                                </p>
+                            </div>
+                        </div>
+                        <div className='detail-container__right'>
+                            <span>{productConditionMap[item.condition]}</span>
+                            <h2>{item.title}</h2>
+                            <p className='item-price'>
+                                {`${mapCurrencyId(item.currency_id)} ${item.price.toLocaleString("es-ES")}` }
+                            </p>
+                            <button className='buy-button'>Comprar</button>
+                        </div>
                     </div>
-                    <div>
-                        <h3>
-                            Descripción del producto
-                        </h3>
-                        <p>
-                            {itemDescription}
-                        </p>
-                    </div>
-                </div>
-                <div className='product-detail-right'>
-                    <span>{item.condition}</span>
-                    <h2>{item.title}</h2>
-                    <p className='item-price'>
-                        {`${mapCurrencyId(item.currency_id)} ${item.price.toLocaleString("es-ES")}` }
-                    </p>
-                    <button className='buy-button'>Comprar</button>
-                </div>
-                </div>
                 )
             }
         

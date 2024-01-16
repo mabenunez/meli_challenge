@@ -1,0 +1,11 @@
+@use '../../App' as variables;
+
+.products-section {
+    background-color: variables.$backgroundGray;
+}
+  
+.products-section__list {
+    margin: 0;
+    padding: 30px 0;
+}
+  
