@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import logo from '../../meli-logo.png';
 import searchIcon from '../../search-icon.png'
-import '../../App.scss';
+import './SearchBar.scss';
 import axios from 'axios'
 import { Results } from '../../App'
 
@@ -34,22 +34,22 @@ function SearchBar({ setSearch}:Props) {
 
   }
   return (
-      <header className="searchBarContainer">
+      <header className="header">
         <nav className="nav">
           <Link to={"/"}>
-            <div className="mercadolibre-logo-cont">
-              <img src={logo} className="mercadolibre-logo" alt="mercadolibre-logo" />
+            <div className="nav__mercadolibre-logo-container">
+              <img src={logo} className="mercadolibre-logo-container__img" alt="mercadolibre-logo" />
             </div>
           </Link>
           <form action="" onSubmit={onSearch}>
-          <input
-              className="input-search"
-              type="text"
-              name="query"
-              placeholder="Nunca dejes de buscar"
-          />
-          <button  className="search-button" type="submit" >
-              <img src={searchIcon} className="search-icon" alt="search-icon" />
+            <input
+                className="nav__input-search"
+                type="text"
+                name="query"
+                placeholder="Nunca dejes de buscar"
+            />
+            <button className="nav__search-button" type="submit" >
+              <img src={searchIcon} className="search-button__icon" alt="search-icon" />
             </button>
           </form>
         </nav>

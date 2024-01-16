@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../App.scss';
+import './ItemCard.scss';
 
 interface Props {
     thumbnail: string
@@ -14,14 +14,14 @@ function ItemCard({
 }:Props) {
   return (
     <li className='list-item'>
-    <div className='item-img-container'>
+    <div className='item__img-container'>
         <img src={thumbnail} alt="" />
     </div>
     <div>
-        <h2 className='item-title'>
+        <h2 className='item__title'>
             {title}
         </h2>
-        <p className='item-price'>
+        <p className='item__price'>
             {price}
         </p>
     </div>

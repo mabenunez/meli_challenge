@@ -1,0 +1,39 @@
+.header {
+    background-color: #ffe600;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav__mercadolibre-logo-container {
+    width: 134px;
+    padding: 8px;
+    margin-right: 15px;
+}
+  
+.mercadolibre-logo-container__img {
+    width: 100%;
+}
+  
+.nav__input-search {
+    width: 560px;
+    height: 40px;
+    padding: 0 10px;
+    border: none;
+}
+.nav__search-button {
+    color:#EBECEE;
+    width: 46px;
+    height: 40px;
+    border: none;
+}
+  
+.search-button__icon {
+    width: 16px;
+}

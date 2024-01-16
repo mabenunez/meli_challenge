@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import '../../App.scss'
+import './ProductDetail.scss'
 
 const currencyMap = {
     'ARS' : '$',
@@ -37,32 +38,32 @@ function ProductDetail() {
   return (
     <section className='product-detail-section'>
             {loading 
-            ? <div>cargando</div>
-            : (
-                <div className='product-detail-container'>
-            <div className='product-detail-left'>
-                <div>
-                    <img src={item.pictures[0].url} alt="" />
+                ? <div>cargando</div>
+                : (
+                    <div className='product-detail-container'>
+                <div className='product-detail-left'>
+                    <div>
+                        <img src={item.pictures[0].url} alt="" />
+                    </div>
+                    <div>
+                        <h3>
+                            Descripción del producto
+                        </h3>
+                        <p>
+                            {itemDescription}
+                        </p>
+                    </div>
                 </div>
-                <div>
-                    <h3>
-                        Descripción del producto
-                    </h3>
-                    <p>
-                        {itemDescription}
+                <div className='product-detail-right'>
+                    <span>{item.condition}</span>
+                    <h2>{item.title}</h2>
+                    <p className='item-price'>
+                        {`${mapCurrencyId(item.currency_id)} ${item.price.toLocaleString("es-ES")}` }
                     </p>
+                    <button className='buy-button'>Comprar</button>
                 </div>
-            </div>
-            <div className='product-detail-right'>
-                <span>{item.condition}</span>
-                <h2>{item.title}</h2>
-                <p className='item-price'>
-                    {`${mapCurrencyId(item.currency_id)} ${item.price.toLocaleString("es-ES")}` }
-                </p>
-                <button>Comprar</button>
-            </div>
-            </div>
-            )
+                </div>
+                )
             }
         
     </section>

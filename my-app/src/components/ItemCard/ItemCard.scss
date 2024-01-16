@@ -1,0 +1,27 @@
+.list-item{
+    list-style: none;
+    background-color: white;
+    width: 70%;
+    margin: 0 auto 1px auto;
+    padding: 20px 50px 20px 0;
+    display: flex;
+}
+  
+.item__img-container {
+    width: 150px;
+    padding: 0 20px;
+}
+  
+.item__img-container img {
+    width: 100%;
+}
+
+.item__title {
+    font-size: 20px;
+    font-weight: 100;
+}
+  
+.item__price {
+    font-size: 22px;
+    font-weight: 400;
+}
