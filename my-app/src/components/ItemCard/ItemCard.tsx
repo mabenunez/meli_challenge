@@ -14,17 +14,17 @@ function ItemCard({
 }:Props) {
   return (
     <li className='list-item'>
-    <div className='item__img-container'>
-        <img src={thumbnail} alt="" />
-    </div>
-    <div>
-        <h2 className='item__title'>
-            {title}
-        </h2>
-        <p className='item__price'>
-            {price}
-        </p>
-    </div>
+        <div className='item__img-container'>
+            <img src={thumbnail} alt="" />
+        </div>
+        <div>
+            <h2 className='item__title'>
+                {title}
+            </h2>
+            <p className='item__price'>
+                {price}
+            </p>
+        </div>
 </li>
   );
 }

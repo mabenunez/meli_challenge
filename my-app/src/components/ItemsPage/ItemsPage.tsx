@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import ItemCard from '../ItemCard/ItemCard'
 import { Results } from '../../types'; 
 import { currencyMap } from '../../constants';
-import '../../App.scss'
+import './ItemsPage.scss'
 
 interface Props {
     items : Results[]
@@ -21,7 +21,7 @@ function ItemsPage(items: Props) {
         <ul className='products-section__list'>
             {itemArray.map((item) => {
                 return (
-                    <Link to={"/items/" + item.id } key={item.id}>
+                    <Link to={"/items/" + item.id } key={item.id} className='list__link'>
                         <ItemCard
                             thumbnail={item.thumbnail}
                             title={item.title}
