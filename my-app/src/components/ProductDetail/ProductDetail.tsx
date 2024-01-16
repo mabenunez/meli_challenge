@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
+import { useParams } from 'react-router-dom'
 import '../../App.scss'
 
 const currencyMap = {
@@ -10,63 +11,60 @@ const currencyMap = {
     'BRL' : 'R$'
 }
 
-interface results {
-    id: string
-    thumbnail: string
-    currency_id: "ARS" | "BOB" | "USD" | "COP" | "BRL"
-    title: string
-    price: number
-}
+function ProductDetail() {
 
-interface Props {
-    condition: string
-    id?: string
-    picture: string
-    currency_id: "ARS" | "BOB" | "USD" | "COP" | "BRL"
-    title: string
-    price: number
-    description: string
-}
-
-function ProductDetail({
-    condition,
-    id,
-    picture,
-    currency_id,
-    title,
-    price,
-    description
-}:Props) {
+    const [ loading, setLoading ] = useState<boolean>(true)
+    const [ item, setItem ] = useState<any>({})
+    const [ itemDescription, setItemDescription ] = useState<string>('')
 
     const mapCurrencyId = (str: keyof typeof currencyMap) => {
         return currencyMap[str];
     }
 
+    const { id } = useParams();
+
+    useEffect(() => {
+        axios.get("https://api.mercadolibre.com/items/" + id )
+        .then(response => {setItem(response.data); return response.data})
+        .catch(error => console.log(error))
+
+        axios.get("https://api.mercadolibre.com/items/" + id + '/description')
+        .then(response => {setItemDescription(response.data.plain_text); return response.data.plain_text})
+        .then(() => setLoading(false))
+        .catch(error => console.log(error))
+    }, [])
+
   return (
     <section className='product-detail-section'>
-        <div className='product-detail-container'>
+            {loading 
+            ? <div>cargando</div>
+            : (
+                <div className='product-detail-container'>
             <div className='product-detail-left'>
                 <div>
-                    <img src={picture} alt="" />
+                    <img src={item.pictures[0].url} alt="" />
                 </div>
                 <div>
                     <h3>
                         Descripción del producto
                     </h3>
                     <p>
-                        {description}
+                        {itemDescription}
                     </p>
                 </div>
             </div>
             <div className='product-detail-right'>
-                <span>{condition}</span>
-                <h2>{title}</h2>
+                <span>{item.condition}</span>
+                <h2>{item.title}</h2>
                 <p className='item-price'>
-                    {`${mapCurrencyId(currency_id)} ${price.toLocaleString("es-ES")}` }
+                    {`${mapCurrencyId(item.currency_id)} ${item.price.toLocaleString("es-ES")}` }
                 </p>
                 <button>Comprar</button>
             </div>
-        </div>
+            </div>
+            )
+            }
+        
     </section>
   );
 }
