@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
-import {Route, useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import logo from '../../meli-logo.png';
 import searchIcon from '../../search-icon.png'
 import '../../App.scss';
+import axios from 'axios'
+import { Results } from '../../App'
 
 interface Props {
-  search: string
-  setSearch: (e: string) => void;
+  setSearch: (e: Results[]) => void;
 }
 
 interface Form extends HTMLDivElement {
   query: HTMLInputElement;
 }
 
-function SearchBar({ search, setSearch}:Props) {
+function SearchBar({ setSearch}:Props) {
+  const [items, setItems] = useState<Results[]>([])
 
   const navigate = useNavigate();
 
@@ -22,6 +24,14 @@ function SearchBar({ search, setSearch}:Props) {
     event.preventDefault();
 
     navigate(`/items?q=${event.target.query.value}`);
+
+    const searchProduct = event.target.query.value
+
+      axios.get("https://api.mercadolibre.com/sites/MLA/search?q=" + searchProduct + "&limit=4")
+      .then(response => {setItems(response.data.results); return response.data.results})
+      .then((items) => setSearch(items))
+      .catch(error => console.log(error))
+
   }
   return (
       <header className="searchBarContainer">
@@ -34,24 +44,14 @@ function SearchBar({ search, setSearch}:Props) {
           <form action="" onSubmit={onSearch}>
           <input
               className="input-search"
-              onChange={(e) => setSearch(e.target.value)}
               type="text"
               name="query"
-              placeholder="Nunca dejes de buscar"/>
-            
-          </form>
-          {/* <form action='/items'>
-            <input
-              className="input-search"
-              onChange={(e) => setSearch(e.target.value)}
-              type="text"
-              placeholder="Nunca dejes de buscar"/>
-          </form> */}
-          <Link to={"/items?q=" + search }>
-            <button  className="search-button">
+              placeholder="Nunca dejes de buscar"
+          />
+          <button  className="search-button" type="submit" >
               <img src={searchIcon} className="search-icon" alt="search-icon" />
             </button>
-          </Link>
+          </form>
         </nav>
       </header>
   );

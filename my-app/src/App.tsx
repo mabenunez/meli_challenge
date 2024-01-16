@@ -5,18 +5,26 @@ import SearchBar from './components/SearchBar/SearchBar';
 import ItemsPage from './components/ItemsPage/ItemsPage';
 import ProductDetail from './components/ProductDetail/ProductDetail'
 
+export interface Results {
+  id: string
+  thumbnail: string
+  currency_id: "ARS" | "BOB" | "USD" | "COP" | "BRL"
+  title: string
+  price: number
+}
+
 function App() {
-  const [search, setSearch] = useState("");
+
+  const [items, setItems] = useState<Results[]>([])
 
   return (
       <div className="App">
         <BrowserRouter>
           <SearchBar
-            search={search}
-            setSearch={(search) => setSearch(search)}
+            setSearch={(results) => setItems(results)}
           />
           <Routes>
-          <Route path="/items" element={<ItemsPage/>}/>
+          <Route path="/items" element={<ItemsPage items={items} />}/>
           <Route
             path="/items/:id"
             element={
