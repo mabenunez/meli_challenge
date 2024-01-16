@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
-import '../../App.scss'
-import './ProductDetail.scss'
 import { Results } from '../../types';
 import { currencyMap, productConditionMap } from '../../constants';
+import loadingIcon from '../../loading-icon.png'
+import '../../App.scss'
+import './ProductDetail.scss'
 
 function ProductDetail() {
 
@@ -15,7 +16,7 @@ function ProductDetail() {
         currency_id: "ARS",
         title: '',
         price: 0,
-        pictures: [],
+        pictures: [{url: 'https://e7.pngegg.com/pngimages/321/641/png-clipart-load-the-map-loading-load.png'}],
         condition: 'new'
     })
     const [ itemDescription, setItemDescription ] = useState<string>('')
@@ -40,8 +41,11 @@ function ProductDetail() {
   return (
     <section className='product-detail-section'>
             {loading 
-                ? <div>cargando</div>
-                : (
+                ? (
+                    <div className='loading-icon'>
+                        <img src={loadingIcon} className="loading-icon__image" alt="loading-icon"/>
+                    </div>
+                ) : (
                     <div className='detail-container'>
                         <div className='detail-container__left-column'>
                             <div>
